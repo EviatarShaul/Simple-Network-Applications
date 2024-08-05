@@ -9,13 +9,20 @@ public class ServerMain {
         ServerSocket serverSocket = new ServerSocket(2020);
         System.out.println("Port 2020 is opened");
 
+
         // server always listen
         while (true) {
             Socket socket = serverSocket.accept();
-            ServerThread serverThread = new ServerThread(socket);
+            ServerThread serverThread = new ServerThread(socket, this);
             Thread thread = new Thread(serverThread);
             thread.start();
         }
+    }
+
+    private int clientCounter = 1;
+
+    public int getAndIncClientCounter() {
+        return clientCounter++;
     }
 
     public static void main(String[] args) {
